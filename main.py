@@ -9,7 +9,7 @@ from PIL import Image
 RUN_RPI = os.getenv('RUN_RPI') == False
 
 if RUN_RPI:
-    import epd2in13b_V4  # Import sterownika Waveshare tylko na RPi
+    from waveshare_epd import epd2in13b_V4
 
 
 previous_stats = None
