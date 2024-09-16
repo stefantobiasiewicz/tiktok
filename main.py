@@ -82,7 +82,6 @@ def has_stats_changed(old_stats, new_stats):
     return (
         old_stats.followerCount != new_stats.followerCount or
         old_stats.likeCount != new_stats.likeCount or
-        old_stats.followingCount != new_stats.followingCount or
         old_stats.videoCount != new_stats.videoCount
     )
 
@@ -139,7 +138,6 @@ def display_image_on_eink(image_path):
         # Inicjalizacja sterownika
         epd = epd2in13b_V4.EPD()
         epd.init()
-        epd.Clear()
 
         # Załadowanie obrazu i konwersja do trybu e-ink (1-bit color)
         if os.path.exists(image_path):
