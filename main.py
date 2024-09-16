@@ -145,13 +145,6 @@ def display_image_on_eink(image_path):
         if os.path.exists(image_path):
             image = Image.open(image_path)
 
-            # Dostosowanie obrazu do rozmiaru wyświetlacza
-            width, height = epd.width, epd.height
-            image = image.resize((width, height), Image.ANTIALIAS)
-
-            # Konwersja na obraz w odcieniach szarości i utworzenie czarno-białej maski
-            image = image.convert('1')  # Konwersja na czarno-biały obraz
-
             # Wyświetlenie obrazu na wyświetlaczu
             epd.display(epd.getbuffer(image))
             epd.sleep()
