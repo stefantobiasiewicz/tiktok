@@ -31,32 +31,38 @@ def render_html_to_image(html_content, output_image, width, height):
     hti.screenshot(html_str=html_content, save_as=output_image)
 
 
-def generate_image(stats: TikTokStats):
-    # Wczytaj HTML z pliku
-    with open('template.html', 'r') as file:
-        template_content = file.read()
+def generate_image(stats):
+    try:
+        # Wczytaj HTML z pliku
+        with open('template.html', 'r') as file:
+            template_content = file.read()
 
-    # Tworzenie szablonu Jinja2
-    template = Template(template_content)
+        print("Wczytano zawartość szablonu HTML.")
 
-    # Dane do szablonu
-    html_content = template.render(
-        name="@final_not_me",
-        fC=stats.followerCount,
-        lC=stats.likeCount,
-        followingCount=stats.followingCount,
-        videoCount=stats.videoCount
-    )
+        # Tworzenie szablonu Jinja2
+        template = Template(template_content)
 
-    output_image = "output.png"
-    width = 250
-    height = 122
+        # Dane do szablonu
+        html_content = template.render(
+            name="@final_not_me",
+            fC=stats.followerCount,
+            lC=stats.likeCount,
+            followingCount=stats.followingCount,
+            videoCount=stats.videoCount
+        )
 
-    # Renderowanie HTML na obraz
-    render_html_to_image(html_content, output_image, width, height)
+        output_image = "output.png"
+        width = 250
+        height = 122
 
+        print(f"Generowanie obrazu z danymi: {stats}")
 
+        # Renderowanie HTML na obraz
+        render_html_to_image(html_content, output_image, width, height)
+        print(f"Obraz zapisany jako {output_image} o rozmiarze {width}x{height}.")
 
+    except Exception as e:
+        print(f"Błąd podczas generowania obrazu: {e}")
 
 
 # Funkcja do zamiany JSON na obiekt
