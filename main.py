@@ -1,7 +1,4 @@
-
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+import imgkit
 
 
 from jinja2 import Template
@@ -29,24 +26,13 @@ class TikTokStats:
     videoCount: int
 
 def render_html_to_image(html_content, output_image, width, height):
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
+    options = {
+        'width': width,
+        'height': height,
+        'format': 'png'
+    }
+    imgkit.from_string(html_content, output_image, options=options)
 
-    # Ścieżka do chromedriver
-    service = Service('/usr/lib/chromium-browser/chromedriver')
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-
-    driver.get("data:text/html;charset=utf-8," + html_content)
-    driver.set_window_size(width, height)
-
-    # Zrzut ekranu
-    screenshot = driver.get_screenshot_as_png()
-
-    with open(output_image, 'wb') as file:
-        file.write(screenshot)
-
-    driver.quit()
 
 
 def generate_image(stats):
