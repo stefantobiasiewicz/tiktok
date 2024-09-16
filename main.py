@@ -145,8 +145,14 @@ def display_image_on_eink(image_path):
         if os.path.exists(image_path):
             image = Image.open(image_path)
 
-            # Wyświetlenie obrazu na wyświetlaczu
-            epd.display(epd.getbuffer(image))
+            # Dostosowanie obrazu do rozmiaru wyświetlacza
+            width, height = epd.width, epd.height
+
+            red_image = Image.new('1', (width, height), 255)  # Całkowicie biały obraz (bez czerwonych pikseli)
+
+            # Wyświetlenie obrazów na wyświetlaczu
+            epd.display(epd.getbuffer(image), epd.getbuffer(red_image))
+
             epd.sleep()
         else:
             print(f"Błąd: Plik {image_path} nie istnieje.")
