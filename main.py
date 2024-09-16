@@ -1,4 +1,5 @@
-from weasyprint import HTML
+import imgkit
+
 
 from jinja2 import Template
 import requests
@@ -25,8 +26,16 @@ class TikTokStats:
     videoCount: int
 
 def render_html_to_image(html_content, output_image, width, height):
-    html = HTML(string=html_content)
-    html.write_png(output_image, width=width, height=height)
+    options = {
+        'width': width,
+        'height': height,
+        'format': 'png',
+        'crop-w': width,
+        'crop-h': height
+    }
+    imgkit.from_string(html_content, output_image, options=options)
+
+
 
 
 def generate_image(stats):
