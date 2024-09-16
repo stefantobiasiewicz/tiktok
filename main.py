@@ -1,4 +1,9 @@
-from html2image import Html2Image
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+
+
 from jinja2 import Template
 import requests
 import time
@@ -24,11 +29,24 @@ class TikTokStats:
     videoCount: int
 
 def render_html_to_image(html_content, output_image, width, height):
-    # Ustawienie rozmiaru podczas tworzenia instancji
-    hti = Html2Image(size=(width, height))
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
 
-    # Renderowanie HTML do obrazu
-    hti.screenshot(html_str=html_content, save_as=output_image)
+    # Ścieżka do chromedriver
+    service = Service('/usr/lib/chromium-browser/chromedriver')
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    driver.get("data:text/html;charset=utf-8," + html_content)
+    driver.set_window_size(width, height)
+
+    # Zrzut ekranu
+    screenshot = driver.get_screenshot_as_png()
+
+    with open(output_image, 'wb') as file:
+        file.write(screenshot)
+
+    driver.quit()
 
 
 def generate_image(stats):
