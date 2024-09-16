@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import os
 from PIL import Image
 
-RUN_RPI = os.getenv('RUN_RPI') == False
+RUN_RPI = os.getenv('RUN_RPI') == True
 
 if RUN_RPI:
     from waveshare_epd import epd2in13b_V4
