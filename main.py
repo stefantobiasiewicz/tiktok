@@ -1,5 +1,5 @@
 import imgkit
-from html2image import Html2Image
+
 
 from jinja2 import Template
 import requests
@@ -25,20 +25,18 @@ class TikTokStats:
     followingCount: int
     videoCount: int
 
-# def render_html_to_image(html_content, output_image, width, height):
-#     options = {
-#         'width': width,
-#         'height': height,
-#         'format': 'png'
-#     }
-#     imgkit.from_string(html_content, output_image, options=options)
-
 def render_html_to_image(html_content, output_image, width, height):
-    # Ustawienie rozmiaru podczas tworzenia instancji
-    hti = Html2Image(size=(width, height))
+    options = {
+        'width': width+10,
+        'height': height+10,
+        'format': 'png',
+        'crop-w': width,
+        'crop-h': height
+    }
+    imgkit.from_string(html_content, output_image, options=options)
 
-    # Renderowanie HTML do obrazu
-    hti.screenshot(html_str=html_content, save_as=output_image)
+
+
 
 def generate_image(stats):
     try:
