@@ -27,8 +27,8 @@ class TikTokStats:
 
 def render_html_to_image(html_content, output_image, width, height):
     options = {
-        'width': width+10,
-        'height': height+10,
+        'width': width,
+        'height': height,
         'format': 'png',
         'crop-w': width,
         'crop-h': height
