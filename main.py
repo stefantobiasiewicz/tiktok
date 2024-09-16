@@ -51,7 +51,7 @@ def generate_image(stats):
 
         # Dane do szablonu
         html_content = template.render(
-            name="@final_not_me",
+            name="@final_notme",
             fC=stats.followerCount,
             lC=stats.likeCount,
             followingCount=stats.followingCount,
