@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import imgkit
 
 
@@ -173,10 +175,16 @@ def display_image_on_eink(image_path):
 # Funkcja główna
 def main():
     while True:
+        current_time = datetime.now()
+        if current_time.hour == 2 and current_time.minute == 0:
+            print("Rebooting system at 2 AM...")
+            os.system('sudo reboot')
+
         stats = fetch_tiktok_stats()
         generate_image(stats)
         display_image_on_eink("output.png")
         time.sleep(3)
+
 
 # Standardowy blok Python do uruchamiania skryptu
 if __name__ == "__main__":
