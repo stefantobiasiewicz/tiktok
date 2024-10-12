@@ -183,7 +183,7 @@ def main():
         stats = fetch_tiktok_stats()
         generate_image(stats)
         display_image_on_eink("output.png")
-        time.sleep(3)
+        time.sleep(180)
 
 
 # Standardowy blok Python do uruchamiania skryptu
